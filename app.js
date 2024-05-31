@@ -19,6 +19,7 @@ app.use('/', require('./routes/index'))
 app.use('/voters', require('./routes/voters'))
 app.use('/election', require('./routes/election'))
 app.use('/election', require('./routes/candidate'))
+app.use('/election', require('./routes/ballot'))
 
 
 
