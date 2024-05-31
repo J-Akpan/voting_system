@@ -2,38 +2,43 @@ const Sequelize = require('sequelize');
 const db = require("../config/dbConfig")
 
     //create model
-    const Voters = db.define('Voter',{
-        voterId: {
+    const Candidate = db.define('Candidate',{
+        candidateId: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        firstname: {
-            type: Sequelize.STRING,
+        electionId: {
+            type: Sequelize.INTEGER,
             allowNull: false
 
+        },
+
+        firstname: {
+            type: Sequelize.STRING,
+            allowNull: false,
         },
 
         lastname: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-
         email: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-
-        phone: {
+        profile: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        party: {
             type: Sequelize.STRING,
             allowNull: false,
         },
 
-        address: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        }
+      
+
     })
 
     
-module.exports = Voters
+module.exports = Candidate

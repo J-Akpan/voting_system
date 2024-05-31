@@ -8,8 +8,7 @@ router.get('/all', (req,res) =>
      Voter.findAll()
         .then(voters => {
             console.log(voters)
-            res.sendStatus(200)
-            
+            res.sendStatus(200)   
         })
         .catch(err => console.log(err))
 
