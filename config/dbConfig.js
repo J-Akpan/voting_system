@@ -1,5 +1,7 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 require ("dotenv").config()
+require('../models/Voters')
+
 
 const CONFIG = {
     DB_name: process.env.DB_name,
@@ -34,7 +36,11 @@ const sequelize = new Sequelize(
 
 
     // adding models
-    // db.voters = Voters(sequelize, DataTypes)
+    // db.voters = Voter(sequelize, DataTypes)
+    db.Voters = require('../models/Voters')(sequelize,DataTypes)
+
+
+    
 
     //sync databse
     db.sequelize.sync({force: false})
@@ -47,4 +53,8 @@ const sequelize = new Sequelize(
 
 
 
-module.exports = CONFIG
+module.exports = {
+    CONFIG,
+    db
+
+}
