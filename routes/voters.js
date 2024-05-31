@@ -1,16 +1,19 @@
-const Sequelize = require('sequelize')
 const db = require("../config/dbConfig")
 const express = require("express")
 const Voter = require('../models/Voters')
-
-
 const router = express.Router()
 
 // //get all voters
-// router.get('/all', (req,res) =>{
-//     const voter = db.voters.findAll()
+router.get('/all', (req,res) =>
+     Voter.findAll()
+        .then(voters => {
+            console.log(voters)
+            res.sendStatus(200)
+            
+        })
+        .catch(err => console.log(err))
 
-// })
+)
 
 //voters login
 router.get('/login', (req, res) =>{
