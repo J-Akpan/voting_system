@@ -1,45 +1,42 @@
-const { Sequelize } = require('sequelize');
-require('../config/dbConfig')
-const CONFIG = require("../config/dbConfig")
+const Sequelize = require('sequelize');
+const db = require("../config/dbConfig")
 
 //model
 
-module.exports = (sequelize, DataTypes) =>{
+
     //create model
-    const Voters = sequelize.define('Voter',{
+    const Voters = db.define('Voter',{
         voterId: {
-            type: DataTypes.INTEGER,
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         firstname: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: Sequelize.STRING,
+            allowNull: false
 
         },
 
         lastname: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
 
         email: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
 
         phone: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
 
         address: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         }
-    }, {
-        tableName: "voters"
     })
 
-    return Voters
-}
+    
+module.exports = Voters

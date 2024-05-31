@@ -1,7 +1,7 @@
 // import needed dmodules
 const express = require("express")
 require ("dotenv").config()
-const CONFIG = require("./config/dbConfig")
+const db = require("./config/dbConfig")
 
 
 

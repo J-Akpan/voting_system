@@ -1,4 +1,4 @@
-const voterModel = require('../models/Voters')
+// const voterModel = require('../models/Voters')
 
 
 

@@ -1,8 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const Sequelize = require('sequelize');
 require ("dotenv").config()
-require('../models/Voters')
-
-
 
 
 const CONFIG = {
@@ -14,7 +11,7 @@ const CONFIG = {
 }
 
 //databse connection
-const sequelize = new Sequelize(
+const db = new Sequelize(
     CONFIG.DB_name, 
     CONFIG.DB_username, 
     CONFIG.DB_password, 
@@ -24,32 +21,16 @@ const sequelize = new Sequelize(
   });
 
   //test db connection
-  sequelize.authenticate()
+  db.authenticate()
     .then(()=>{
         console.log("database connection successfull")
     }).catch((err)=>{
         console.log(err)
     })
 
-    const db = {}
-
-    db.sequelize = sequelize
-    db.Sequelize = Sequelize
-
-
-    // adding models
-    db.Voters = require('../models/Voters')(sequelize,DataTypes)
-    // db.voteRoute = require('../routes/voters')(sequelize,DataTypes)
-    
-
    
-
-
-
-    
-
     //sync databse
-    db.sequelize.sync({force: false})
+    db.sync({force: false})
         .then(()=>{
             console.log('table sync successfull')
         }).catch((err)=>{
@@ -59,8 +40,4 @@ const sequelize = new Sequelize(
 
 
 
-module.exports = {
-    CONFIG,
-    db
-
-}
+module.exports = db
