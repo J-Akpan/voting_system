@@ -3,6 +3,8 @@ require ("dotenv").config()
 require('../models/Voters')
 
 
+
+
 const CONFIG = {
     DB_name: process.env.DB_name,
     DB_username: process.env.DB_username,
@@ -36,8 +38,12 @@ const sequelize = new Sequelize(
 
 
     // adding models
-    // db.voters = Voter(sequelize, DataTypes)
     db.Voters = require('../models/Voters')(sequelize,DataTypes)
+    // db.voteRoute = require('../routes/voters')(sequelize,DataTypes)
+    
+
+   
+
 
 
     
