@@ -18,8 +18,8 @@ app.use(express.urlencoded({extended: false}))
 app.use('/', require('./routes/index'))
 app.use('/voters', require('./routes/voters'))
 app.use('/election', require('./routes/election'))
-app.use('/election', require('./routes/candidate'))
-app.use('/election', require('./routes/ballot'))
+app.use('/candidate', require('./routes/candidate'))
+app.use('/ballot', require('./routes/ballot'))
 
 
 

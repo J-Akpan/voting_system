@@ -23,17 +23,62 @@ router.get('/login', (req, res) =>{
 
 //login handler
 router.post('/login', (req,res)=>{
-    console.log(req.body)
-    res.send('login success')
+    res.send('login Handler')
+
 })
 
 
-
-
-
 //voters registration
-router.get('/register', (req, res) =>{
-    res.send('Welcome to the voters resitration page')
+router.post('/register', (req, res) =>{
+    const {firstname, lastname, email, phone, address, state, lga, ward } = req.body
+    
+    // val?idate fields
+    let errors = [];
+
+    if(!firstname)
+        errors.push({msg: 'Please type in you firstname'})
+
+    if(!lastname)
+        errors.push({msg: 'Please type in you lastname'})
+
+    if(!email)
+        errors.push({msg: 'Please type in you email'})
+
+    if(!phone)
+        errors.push({msg: 'Please type in you phone'})
+
+    if(!address)
+        errors.push({msg: 'Please type in you address'})
+
+    if(!state)
+        errors.push({msg: 'Please type in you state'})
+
+    if(!lga)
+        errors.push({msg: 'Please type in you LGA'})
+
+    if(!ward)
+        errors.push({msg: 'Please type in you ward'})
+
+    //errors check
+    if (errors.length > 0){
+        res.send('sosme fields are empty')
+    }else{
+        Voter.create({
+            firstname,
+            lastname,
+            email,
+            phone,
+            address,
+            state,
+            lga,
+            ward
+            
+        })
+            .then(res.send('voter registeration successfull'))
+            .catch(err => console.log(err))
+
+    }
+    
 })
 
 //voters accreditation
@@ -45,9 +90,5 @@ router.get('/accreditation', (req, res) =>{
 router.get('/vote', (req, res) =>{
     res.send('Welcome to the voters casting page')
 })
-
-
-
-
 
 module.exports = router

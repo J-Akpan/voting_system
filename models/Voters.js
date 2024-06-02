@@ -32,7 +32,23 @@ const db = require("../config/dbConfig")
         address: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
+
+        state: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        lga: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+        ward: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+    
     })
 
     
