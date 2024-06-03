@@ -4,9 +4,9 @@ const db = require("../config/dbConfig")
     //create model
     const Election = db.define('Election',{
         electionId: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true
+            allowNull: false
         },
         electionName: {
             type: Sequelize.STRING,

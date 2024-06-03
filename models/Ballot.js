@@ -4,11 +4,18 @@ const db = require("../config/dbConfig")
     //create model
     const Ballot = db.define('Ballot',{
         electionId: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             primaryKey: true,
-            autoIncrement: true
+            allowNull: false
+            
         },
         electionId: {
+            type: Sequelize.STRING,
+            allowNull: false
+
+        },
+
+        voterId: {
             type: Sequelize.STRING,
             allowNull: false
 

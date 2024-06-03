@@ -6,7 +6,8 @@ const db = require("../config/dbConfig")
         voterId: {
             type: Sequelize.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            allowNull: false,
+            
         },
         firstname: {
             type: Sequelize.STRING,
@@ -20,6 +21,14 @@ const db = require("../config/dbConfig")
         },
 
         email: {
+            type: Sequelize.STRING,
+            validate: {
+                isEmail: true,
+            },
+            allowNull: false,
+        },
+
+        passwords: {
             type: Sequelize.STRING,
             allowNull: false,
         },
