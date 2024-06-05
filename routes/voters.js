@@ -1,18 +1,9 @@
-const Joi = require("joi")
+const Joi = require("joi");
 const db = require("../config/dbConfig");
 const express = require("express");
 const Voter = require("../models/Voters");
+const { where } = require("sequelize");
 const router = express.Router();
-
-// //get all voters
-router.get("/all", (req, res) =>
-  Voter.findAll()
-    .then((voters) => {
-      console.log(voters);
-      res.sendStatus(200);
-    })
-    .catch((err) => console.log(err))
-);
 
 //voters login
 router.get("/login", (req, res) => {
@@ -22,28 +13,35 @@ router.get("/login", (req, res) => {
 
 //login handler
 
-router.post("/login", (req, res) =>{
- 
-    const {email, passwords} = req.body
-    if(!email || !passwords){
-        res.status(404).send(`invalid email or password `)
-    }else{
-    Voter.findAll({
-    where: {
-      email: req.body.email,
-      passwords: req.body.passwords,
-    },
-  }
+router.post("/login", (req, res) => {
+  const { email, passwords } = req.body;
+  const schema = Joi.object({
+    email: Joi.string().required().email(),
+    passwords: Joi.string().required(),
+  });
+  const check = schema.validate(req.body);
 
-)
-    .then((voters) => {
-      console.log(voters);
-      res.sendStatus(200);
-    })
-    .catch((err) => console.log(err))
-}
-})
-;
+  //check for error
+  if (check.error) {
+    res.status(404).send(check.error.details[0].message);
+  } else {
+    const voterData = Voter.findAll({
+      where: {
+        email: req.body.email,
+        passwords: req.body.passwords,
+      },
+    });
+
+    if (!voterData) {
+      res.status(404).send("Vote does not exist on voters database");
+      console.log(error);
+      return;
+    } else {
+      console.log(voterData);
+      res.status(200).send(`successfull `);
+    }
+  }
+});
 
 //voters registration
 router.post("/register", (req, res) => {
@@ -61,22 +59,21 @@ router.post("/register", (req, res) => {
   } = req.body;
 
   // val?idate fields
-  
-    const schema = Joi.object({
-        voterId: Joi.string().min(3).required(),
-        firstname: Joi.string().required(),
-        lastname: Joi.string().required(),
-        email: Joi.string().min(3).required().email(),
-        passwords: Joi.string().required(),
-        phone: Joi.string(),
-        address: Joi.string().required(),
-        state: Joi.string().required(),
-        lga: Joi.string().required(),
-        ward: Joi.string().required()
 
-    })
-    const result = schema.validate(req.body)
-  
+  const schema = Joi.object({
+    voterId: Joi.string().min(3).required(),
+    firstname: Joi.string().required(),
+    lastname: Joi.string().required(),
+    email: Joi.string().min(3).required().email(),
+    passwords: Joi.string().required(),
+    phone: Joi.string(),
+    address: Joi.string().required(),
+    state: Joi.string().required(),
+    lga: Joi.string().required(),
+    ward: Joi.string().required(),
+  });
+  const result = schema.validate(req.body);
+
   //errors check
   if (result.error) {
     res.status(404).send(result.error.details[0].message);
@@ -98,21 +95,55 @@ router.post("/register", (req, res) => {
   }
 });
 
-//route to select voters details comparing the voters ID
-router.post("/vote", (req, res) => {
-    const schema = Joi.object({
-        voterId: Joi.string().min(5).required()
-    })
-    const Validation = schema.validate(req.body)
-    if (Validation.error){
-        res.status(404).send(Validation.error.details[0].message)
+//routr to update voters details
+router.put("/update", (req, res) => {
+  const {
+    voterId,
+    firstname,
+    lastname,
+    email,
+    passwords,
+    phone,
+    address,
+    state,
+    lga,
+    ward,
+  } = req.body;
+
+  const schema = Joi.object({
+    voterId: Joi.string().min(5).required(),
+  });
+  const Validation = schema.validate(req.body);
+  if (Validation.error) {
+    res.status(404).send(Validation.error.details[0].message);
+    return;
+  } else {
+    const update = Voter.update({
+      voterId,
+      firstname,
+      lastname,
+      email,
+      passwords,
+      phone,
+      address,
+      state,
+      lga,
+      ward,
+
+      where: {
+        voterId: req.body.voterId,
+      },
+    });
+
+    if (!update) {
+      res.status(400).send("update not successfull");
+      return;
+    } else {
+      console.log(update);
+      res.send("success");
     }
+  }
+ 
 }); //end of route
 
-
-//voters vote casting
-router.get("/vote", (req, res) => {
-    //render voters page
-  res.send("Welcome to the voters casting page");
-});
 module.exports = router;
