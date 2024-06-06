@@ -20,6 +20,7 @@ app.use('/voters', require('./routes/voters'))
 app.use('/election', require('./routes/election'))
 app.use('/candidate', require('./routes/candidate'))
 app.use('/ballot', require('./routes/ballot'))
+app.use('/admin', require('./routes/admin'))
 
 
 
