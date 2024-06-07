@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require("../config/dbConfig");
 const Voter = require('../models/Voters')
-const Election = require('../models/Election')
+const Election = require('../models/Election');
+const Candidate = require('../models/Candidate');
+const Ballot = require("../models/Ballot")
+
  //create model
  const Admin = db.define('Admin',{
     adminId: {
@@ -78,5 +81,13 @@ Voter.belongsTo(Admin);
 // Associat Admin with Election model
 Admin.hasMany(Election);
 Election.belongsTo(Admin);
+
+// Associat Admin with candidate model
+Admin.hasMany(Candidate);
+Candidate.belongsTo(Admin);
+
+// Associat Admin with balot model
+Admin.hasMany(Ballot);
+Ballot.belongsTo(Admin);
 
 module.exports = Admin

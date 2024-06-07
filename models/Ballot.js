@@ -3,7 +3,7 @@ const db = require("../config/dbConfig")
 
     //create model
     const Ballot = db.define('Ballot',{
-        electionId: {
+        ballotId: {
             type: Sequelize.STRING,
             primaryKey: true,
             allowNull: false
