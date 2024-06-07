@@ -24,6 +24,11 @@ const db = require("../config/dbConfig")
             allowNull: false,
         },
 
+        adminId: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
     })
 
     

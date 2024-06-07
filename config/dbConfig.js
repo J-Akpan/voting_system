@@ -30,7 +30,7 @@ const db = new Sequelize(
 
    
     //sync databse
-    db.sync({force: false})
+    db.sync({force: true})
         .then(()=>{
             console.log('table sync successfull')
         }).catch((err)=>{
