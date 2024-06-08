@@ -162,4 +162,11 @@ router.get("/candidate-query", (req, res) => {
   }
 });
 
+
+
+
+router.delete("/delete-ballot", (req,res) =>{
+  // const ballotDelete = Admin.destroy() 
+})
+
 module.exports = router;
